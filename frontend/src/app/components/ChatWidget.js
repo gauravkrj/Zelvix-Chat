@@ -26,6 +26,8 @@ export default function ChatWidget() {
   const [typing, setTyping] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [userName, setUserName] = useState('');
+
+  
   const [isAwaitingName, setIsAwaitingName] = useState(false);
   const [showNameModal, setShowNameModal] = useState(false);
   const [nameInput, setNameInput] = useState('');
