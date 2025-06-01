@@ -2,8 +2,8 @@
     "botName": "Nandita",
     "botAvatar": "/assets/bot-avataar.png",
     "apiEndpoints": {
-      "chat": "http://localhost:3000/chat",
-      "upload": "http://localhost:3000/upload"
+      "chat": "https://zelvix-chat.onrender.com/chat",
+      "upload": "https://zelvix-chat.onrender.com/upload"
     },
     "welcomeMessages": {
       "askName": "Hi! I'm {botName} 😊. What's your name?",
