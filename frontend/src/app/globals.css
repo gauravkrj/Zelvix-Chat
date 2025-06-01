@@ -18,24 +18,3 @@ body {
 }
 
 
-/* Add this to your existing global.css */
-
-/* Make the widget page completely transparent */
-html[data-widget-page="true"],
-html[data-widget-page="true"] body {
-  background-color: transparent !important;
-  margin: 0 !important;
-  padding: 0 !important;
-}
-
-/* Alternative: Target the widget page specifically */
-.widget-page-container {
-  background-color: transparent !important;
-}
-
-.widget-page-container html,
-.widget-page-container body {
-  background-color: transparent !important;
-  margin: 0 !important;
-  padding: 0 !important;
-}
