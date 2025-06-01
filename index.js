@@ -7,6 +7,7 @@ const multer = require("multer");
 const pdfParse = require("pdf-parse");
 const mammoth = require("mammoth");
 const xlsx = require("xlsx");
+require('dotenv').config();
 
 const app = express();
 app.use(cors());
@@ -22,7 +23,7 @@ if (!fs.existsSync(uploadsDir)) {
 app.use('/uploads', express.static(uploadsDir));
 
 // Load FAQ context
-const GEMINI_API_KEY = "AIzaSyCzkVXXPcwIGKeN3iWXeS-HAgSQ1LYR9pI"; // Replace with real key
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY;  // env variable se read karein
 const faq = JSON.parse(fs.readFileSync("./faq.json", "utf-8"));
 
 function getPrompt(userQuestion) {
