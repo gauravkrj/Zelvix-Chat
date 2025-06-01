@@ -1,3 +1,4 @@
+//"chatwidget.js"
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
@@ -27,7 +28,7 @@ export default function ChatWidget() {
   const [uploading, setUploading] = useState(false);
   const [userName, setUserName] = useState('');
 
-  
+
   const [isAwaitingName, setIsAwaitingName] = useState(false);
   const [showNameModal, setShowNameModal] = useState(false);
   const [nameInput, setNameInput] = useState('');
