@@ -10,7 +10,10 @@ const xlsx = require("xlsx");
 require('dotenv').config();
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: 'https://zelvix-chat.vercel.app/',
+}));
+
 app.use(express.json());
 
 // Ensure uploads directory exists
@@ -82,7 +85,7 @@ app.post("/upload", upload.single("file"), async (req, res) => {
       preview = "Unsupported file type.";
     }
 
-    const fileUrl = `http://localhost:3000/uploads/${file.filename}`;
+    const fileUrl = `https://zelvix-chat.onrender.com/uploads/${file.filename}`;
     res.json({ preview, fileUrl });
   } catch (error) {
     console.error("File processing error:", error);
@@ -90,7 +93,8 @@ app.post("/upload", upload.single("file"), async (req, res) => {
   }
 });
 
-// Start server
-app.listen(3000, () => {
-  console.log("✅ Gemini Chatbot running at http://localhost:3000");
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`✅ Server running on port ${PORT}`);
 });
+
