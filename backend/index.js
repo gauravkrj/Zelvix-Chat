@@ -24,7 +24,9 @@ if (!fs.existsSync(uploadsDir)) {
 app.use("/uploads", express.static(uploadsDir));
 
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
-const faq = JSON.parse(fs.readFileSync("./faq.json", "utf-8"));
+const faqPath = path.join(__dirname, "faq.json");
+const faq = JSON.parse(fs.readFileSync(faqPath, "utf-8"));
+
 
 function getPrompt(userQuestion) {
   const context = faq.map(f => `Q: ${f.question}\nA: ${f.answer}`).join("\n\n");
