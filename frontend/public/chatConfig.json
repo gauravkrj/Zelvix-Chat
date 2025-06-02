@@ -2,8 +2,8 @@
   "botName": "Nandita",
   "botAvatar": "/assets/bot-avataar.png",
   "apiEndpoints": {
-    "chat": "http://localhost:3000/chat",
-    "upload": "http://localhost:3000/upload"
+    "chat": "https://zelvix.vercel.app/chat",
+    "upload": "https://zelvix.vercel.app/uploads"
   },
   "welcomeMessages": {
     "askName": "Hi! I'm {botName} 😊. What's your name?",

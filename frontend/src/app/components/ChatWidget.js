@@ -348,6 +348,7 @@ export default function ChatWidget() {
                   className="w-full p-2 rounded border border-gray-600 bg-midDark text-light focus:outline-none mb-2"
                   placeholder="Your name"
                   autoFocus
+
                 />
                 {nameError && <p className="text-xs text-red-500 mb-2">{nameError}</p>}
                 <button
