@@ -1,27 +1,26 @@
 {
-    "botName": "Nandita",
-    "botAvatar": "/assets/bot-avataar.png",
-    "apiEndpoints": {
-      "chat": "https://zelvix-chat.onrender.com/chat",
-      "upload": "https://zelvix-chat.onrender.com/upload"
+  "botName": "Nandita",
+  "botAvatar": "/assets/bot-avataar.png",
+  "apiEndpoints": {
+    "chat": "http://localhost:3000/chat",
+    "upload": "http://localhost:3000/upload"
+  },
+  "welcomeMessages": {
+    "askName": "Hi! I'm {botName} 😊. What's your name?",
+    "welcomeBack": "Welcome back, {userName}! How can I help you today?",
+    "nameConfirmation": "Nice to meet you, {userName}! How can I help you today?"
+  },
+  "buttons": [
+    {
+      "label": "Contact Us",
+      "url": "https://nadvibesdigital.in/contact/"
     },
-    "welcomeMessages": {
-      "askName": "Hi! I'm {botName} 😊. What's your name?",
-      "welcomeBack": "Welcome back, {userName}! How can I help you today?",
-      "nameConfirmation": "Nice to meet you, {userName}! How can I help you today?"
-    },
-    "buttons": [
-      {
-        "label": "Contact Us",
-        "url": "https://nadvibesdigital.in/contact/"
-      },
-      {
-        "label": "Book a Free Call",
-        "url": "https://calendly.com/nadvibesdigital/visibility-power-call"
-      }
-    ],
-    "ui": {
-      "typingIndicator": "{botName} is typing..."
+    {
+      "label": "Book a Free Call",
+      "url": "https://calendly.com/nadvibesdigital/visibility-power-call"
     }
+  ],
+  "ui": {
+    "typingIndicator": "{botName} is typing..."
   }
-  
+}
