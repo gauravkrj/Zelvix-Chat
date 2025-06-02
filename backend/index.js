@@ -7,23 +7,23 @@ const multer = require("multer");
 const pdfParse = require("pdf-parse");
 const mammoth = require("mammoth");
 const xlsx = require("xlsx");
+const serverless = require("serverless-http");
 require('dotenv').config();
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Ensure uploads directory exists
+// NOTE: Skip app.listen()
+
+// Create "uploads" folder if it doesn't exist
 const uploadsDir = path.join(__dirname, "uploads");
 if (!fs.existsSync(uploadsDir)) {
   fs.mkdirSync(uploadsDir);
 }
+app.use("/uploads", express.static(uploadsDir));
 
-// Serve static files from the uploads folder (for preview/download)
-app.use('/uploads', express.static(uploadsDir));
-
-// Load FAQ context
-const GEMINI_API_KEY = process.env.GEMINI_API_KEY;  // env variable se read karein
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 const faq = JSON.parse(fs.readFileSync("./faq.json", "utf-8"));
 
 function getPrompt(userQuestion) {
@@ -31,14 +31,12 @@ function getPrompt(userQuestion) {
   return `${context}\n\nUser: ${userQuestion}\nAI:`;
 }
 
-// File storage with unique name
 const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, "uploads/"),
   filename: (req, file, cb) => cb(null, `${Date.now()}-${file.originalname}`)
 });
 const upload = multer({ storage });
 
-// Handle text messages
 app.post("/chat", async (req, res) => {
   const { message } = req.body;
   const prompt = getPrompt(message);
@@ -46,9 +44,7 @@ app.post("/chat", async (req, res) => {
   try {
     const result = await axios.post(
       `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`,
-      {
-        contents: [{ parts: [{ text: prompt }] }]
-      }
+      { contents: [{ parts: [{ text: prompt }] }] }
     );
     const reply = result.data.candidates?.[0]?.content?.parts?.[0]?.text || "No response from Gemini.";
     res.json({ reply });
@@ -58,7 +54,6 @@ app.post("/chat", async (req, res) => {
   }
 });
 
-// Handle file uploads
 app.post("/upload", upload.single("file"), async (req, res) => {
   const file = req.file;
   const ext = path.extname(file.originalname).toLowerCase();
@@ -82,7 +77,7 @@ app.post("/upload", upload.single("file"), async (req, res) => {
       preview = "Unsupported file type.";
     }
 
-    const fileUrl = `http://localhost:3000/uploads/${file.filename}`;
+    const fileUrl = `/uploads/${file.filename}`; // No hardcoded localhost
     res.json({ preview, fileUrl });
   } catch (error) {
     console.error("File processing error:", error);
@@ -90,7 +85,6 @@ app.post("/upload", upload.single("file"), async (req, res) => {
   }
 });
 
-// Start server
-app.listen(3000, () => {
-  console.log("✅ Gemini Chatbot running at http://localhost:3000");
-});
+// ✅ Export for serverless
+module.exports = app;
+module.exports.handler = serverless(app);
